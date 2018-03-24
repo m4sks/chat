@@ -1,0 +1,12 @@
+version: '2'
+services:
+  node:
+    build: .
+    command: bash
+    volumes:
+      - .:/usr/app/chat:delegated
+    ports:
+      - 8080:8080
+    tty: true
+    environment:
+      - PORT = 8080

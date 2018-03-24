@@ -1,0 +1,17 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2",
+    "forever": "^0.15.3",
+    "node-dev": "^3.1.3",
+    "socket.io": "^2.0.4"
+  },
+  "scripts": {
+    "start": "forever app.js",
+    "dev:server": "node-dev app.js",
+    "dev": "yarn dev:server"
+  }
+}
