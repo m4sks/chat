@@ -3,9 +3,6 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const PORT = process.env.PORT || 8080;
 
-// app.get(`/`, (req, res) => {
-//   res.send(`<h1>Hello world</h1>`)
-// });
 app.get(`/`, (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
