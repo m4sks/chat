@@ -10,3 +10,8 @@ services:
     tty: true
     environment:
       - PORT = 8080
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017

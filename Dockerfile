@@ -1,10 +1,10 @@
-FROM node:8.9.4
+FROM node:8.11.1
 
 COPY package*.json ./
 
 RUN yarn install
 
-WORKDIR usr/app/chat
-
 EXPOSE 8080
 CMD [ "yarn", "start" ]
+
+WORKDIR usr/app/chat
