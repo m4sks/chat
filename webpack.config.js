@@ -1,12 +1,13 @@
 const webpack = require('webpack');
-const path = require('path')
+const path = require('path');
 
 module.exports = {
-  entry: './src/server/index.js',
+  entry: './src/client/index',
   output: {
-    path: path.resolve(__dirname, '/public'),
-    filename: 'build.js'
+    path: path.join(__dirname, '/public'),
+    filename: 'bundle.js'
   },
+  target: 'node',
   module: {
     rules: [
       {
@@ -16,7 +17,7 @@ module.exports = {
           loaders: {
             js: 'babel-loader'
           }
-        }
+        },
       },
       {
         test: /\.js$/,
@@ -25,8 +26,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
-        loader: ['style-loader', 'css-loader']
+        loader: ['style-loader', 'css-loader'],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
       }
     ]
   },
@@ -34,11 +42,33 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.common.js'
     },
-    extensions: ['.js', '.vue', '.css']
-  },
-  devServer: {
-    contentBase: 'dist',
-    port: 8080
+    extensions: ['*','.js', '.vue', '.css']
   },
   mode: 'production',
+  performance: {
+    hints: false
+  },
+  watchOptions: {
+    poll: true
+  },
 };
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map'
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ])
+}

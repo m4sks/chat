@@ -2,9 +2,9 @@ FROM node:8.11.1
 
 COPY package*.json ./
 
-RUN yarn install
+RUN npm install
 
 EXPOSE 8080
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]
 
 WORKDIR usr/app/chat

@@ -3,18 +3,26 @@
     h1.title.text-blue ChatVert
     .container-wrap
       router-view.container
-    .footer
-      | by
-      a(href="https://github.com/massss")  @massss
-    //- a.post-button(@click="")
-    //-   i.fas.fa-pencil-alt
+    a.post-button(@click="openModal")
+      i.fas.fa-pencil-alt
+    PostModal
 
 </template>
 <script>
 export default {
-  components: {
+  sockets:{
+    connect: function(){
+      console.log('socket connected')
+    },
+    // customEmit: function(val){
+    //   console.log('this method was fired by the socket server. eg: io.emit("customEmit", data)')
+    // }
   },
   methods: {
+    send: function(val){
+        // $socket is socket.io-client instance
+        this.$socket.emit('emit_method', val);
+    }
   }
 }
 </script>

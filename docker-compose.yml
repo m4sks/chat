@@ -3,6 +3,7 @@ services:
   node:
     build: .
     command: bash
+    container_name: node
     volumes:
       - .:/usr/app/chat:delegated
     ports:
